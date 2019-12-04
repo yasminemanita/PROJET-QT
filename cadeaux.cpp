@@ -119,8 +119,19 @@ QSqlQueryModel * cadeaux::triecin()
 }
 
 
+QSqlQueryModel * cadeaux::rechercher(QString nom){
+   QSqlQuery query;
+
+  query.prepare("select * from CADEAUX where NOM like '%"+nom+"%'");
+  query.exec();
+         QSqlQueryModel * model= new QSqlQueryModel();
+          model->setQuery(query);
+          model->setHeaderData(0, Qt::Horizontal, QObject::tr("NOM"));
+          model->setHeaderData(1, Qt::Horizontal, QObject::tr("SCORE"));
+               return model;
 
 
+}
 
 
 

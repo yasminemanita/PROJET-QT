@@ -81,3 +81,13 @@ void cad::on_comboBox_activated(const QString &arg1)
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("NOM"));
    ui->tabetudiant->setModel(model);
 }
+
+
+
+void cad::on_lineEdit_rechercher_textChanged(const QString &arg1)
+{
+    cadeaux cad;
+    QString nom=ui->lineEdit_rechercher->text();
+    ui->tabetudiant->setModel(cad.rechercher(nom));
+
+}

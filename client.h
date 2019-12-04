@@ -22,6 +22,7 @@ public:
           void setadresse(QString);
           int getcin();
                 bool ajouter();
+
                 QSqlQueryModel *afficher(QString r);
 
                 QSqlQueryModel *triecin();
@@ -29,6 +30,7 @@ public:
                 bool modifier();
                     bool supprimer (int);
                     client getclient(int);
+                     QSqlQueryModel * rechercher(QString );
 
 };
 

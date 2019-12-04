@@ -21,6 +21,7 @@ public:
                 QSqlQueryModel *afficher(QString);
                  QSqlQueryModel *triecin();
                     bool supprimer (int);
+                    QSqlQueryModel *rechercher(QString);
 
 };
 

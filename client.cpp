@@ -140,12 +140,27 @@ client client ::getclient(int cin){
 
         }
 
-        return  eq ;
+        return  eq ;}
+QSqlQueryModel *client::rechercher(QString nom){
+
+    QSqlQuery query;
+    query.prepare("select * from CLIENT_CRUD where NOM like '%"+nom+"%'");
+    query.exec();
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery(query);
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("CIN"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("ADRESSE"));
 
 
-
-
-
-
+        return model;
 
 }
+
+
+
+
+
+
+

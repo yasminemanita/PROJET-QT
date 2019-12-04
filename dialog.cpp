@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 #include "client.h"
+#include<mainwindow.h>
 #include<QtDebug>
 #include<QMessageBox>
 Dialog::Dialog(QWidget *parent) :
@@ -8,6 +9,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
         ui->setupUi(this);
+        connect(ui->sendBtn, SIGNAL(clicked()),this, SLOT(sendMail()));
        /* QPixmap pix("Bureau/user3");
         int w=ui->label_5->width();
         int h=ui->label_5->height();
@@ -124,6 +126,9 @@ void Dialog::on_pushButton_clicked()
         }
 }
 
+
+
+
 void Dialog::on_comboBox_activated(const QString &arg1)
 {
     QSqlQueryModel * model= new QSqlQueryModel();
@@ -157,7 +162,36 @@ void Dialog::on_recherchercad_clicked()
 
 }
 
-void Dialog::on_affectercad_clicked()
+/*void Dialog::on_affectercad_clicked()
 {
 
+}*/
+
+void Dialog::on_pushButton_3_clicked()
+{
+    close();
+
+}
+
+void Dialog::sendMail()
+{
+    Smtp* smtp = new Smtp("ahmed.kridiss@esprit.tn","181JMT1540", "smtp.gmail.com",465);
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+
+
+    smtp->sendMail("ahmed.kridiss@esprit.tn", ui->rcpt->text() , ui->subject->text(),ui->msg->toPlainText());
+}
+
+void Dialog::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::warning( nullptr, tr( "Qt Simple SMTP articles" ), tr( "Message sent!\n\n" ) );
+}
+
+
+void Dialog::on_lineEdit_2_textChanged(const QString &arg1)
+{
+    client c;
+     QString nom=ui->lineEdit_2->text();
+     ui->tabetudiant->setModel(c.rechercher(nom));
 }

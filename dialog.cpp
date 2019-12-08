@@ -10,16 +10,16 @@ Dialog::Dialog(QWidget *parent) :
 {
         ui->setupUi(this);
         connect(ui->sendBtn, SIGNAL(clicked()),this, SLOT(sendMail()));
-       /* QPixmap pix("Bureau/user3");
-        int w=ui->label_5->width();
-        int h=ui->label_5->height();
-        ui->label_5->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-*/
 
-
-
-
-
+       // controle de saisie
+        QRegExp rx("[A-Za-z_]+");//[A-Za-z0-9_]
+            QRegExp rx1("[0-9_]+");
+            QValidator *validator = new QRegExpValidator(rx, this);
+            QValidator *validator2 = new QRegExpValidator(rx1, this);
+            ui->lineEdit_CIN->setValidator(validator2);
+            ui->lineEdit_nom->setValidator(validator);
+             ui->lineEdit_prenom->setValidator(validator);
+            ui->lineEdit_adresse->setValidator(validator);
 
     ui->tabetudiant->setModel(tmpclient.afficher("select *from CLIENT_CRUD"));
 }
@@ -162,10 +162,7 @@ void Dialog::on_recherchercad_clicked()
 
 }
 
-/*void Dialog::on_affectercad_clicked()
-{
 
-}*/
 
 void Dialog::on_pushButton_3_clicked()
 {

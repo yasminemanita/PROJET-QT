@@ -47,8 +47,6 @@ bool client ::ajouter(){
                 "VALUES (:PRENOM, :NOM, :CIN, :ADRESSE)");
  query.bindValue(":PRENOM", prenom); // nsaker l valeur mte3i b hedehka
   query.bindValue(":NOM", nom);
-
-
   query.bindValue(":CIN", cin);
   query.bindValue(":ADRESSE", adresse);
 

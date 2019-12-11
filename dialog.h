@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include"client.h"
+#include "smtp.h"
+
 namespace Ui {
 class Dialog;
 }
@@ -26,7 +28,7 @@ private slots:
 
     void on_pushButton_clicked();
 
-  //  void on_pushButton_2_clicked();
+
 
     void on_pushButton_2_clicked();
 
@@ -35,6 +37,17 @@ private slots:
     void on_recherchercad_clicked();
 
     void on_affectercad_clicked();
+
+    void on_pushButton_3_clicked();
+    void sendMail();
+    void mailSent(QString);
+
+
+    void on_lineEdit_2_textChanged(const QString &arg1);
+
+    void on_tabetudiant_activated(const QModelIndex &index);
+
+    void on_pushButton_modifierclient_clicked();
 
 private:
     Ui::Dialog *ui;

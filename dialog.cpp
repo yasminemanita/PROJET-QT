@@ -103,7 +103,7 @@ void Dialog::on_pushButton_2_clicked()
 }
 
 
-void Dialog::on_pushButton_clicked()
+/*void Dialog::on_pushButton_clicked()
 {
     int cin=ui->lineEdit_5_modif->text().toInt();
         QString nom=ui->lineEdit_2_modif->text();
@@ -126,7 +126,7 @@ void Dialog::on_pushButton_clicked()
         }
 }
 
-
+*/
 
 
 void Dialog::on_comboBox_activated(const QString &arg1)
@@ -148,7 +148,7 @@ void Dialog::on_comboBox_activated(const QString &arg1)
 
 }
 
-void Dialog::on_recherchercad_clicked()
+/*void Dialog::on_recherchercad_clicked()
 {
     int cin = ui->rechcad->text().toInt();
            client c ;
@@ -162,7 +162,7 @@ void Dialog::on_recherchercad_clicked()
 
 }
 
-
+*/
 
 void Dialog::on_pushButton_3_clicked()
 {
@@ -172,11 +172,11 @@ void Dialog::on_pushButton_3_clicked()
 
 void Dialog::sendMail()
 {
-    Smtp* smtp = new Smtp("ahmed.kridiss@esprit.tn","181JMT1540", "smtp.gmail.com",465);
+    Smtp* smtp = new Smtp("yasmine.manita@esprit.tn","181JFT1294", "smtp.gmail.com",465);
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
 
-    smtp->sendMail("ahmed.kridiss@esprit.tn", ui->rcpt->text() , ui->subject->text(),ui->msg->toPlainText());
+    smtp->sendMail("yasmine.manita@esprit.tn", ui->rcpt->text() , ui->subject->text(),ui->msg->toPlainText());
 }
 
 void Dialog::mailSent(QString status)
@@ -191,4 +191,39 @@ void Dialog::on_lineEdit_2_textChanged(const QString &arg1)
     client c;
      QString nom=ui->lineEdit_2->text();
      ui->tabetudiant->setModel(c.rechercher(nom));
+}
+
+void Dialog::on_tabetudiant_activated(const QModelIndex &index)
+{
+    QString val=ui->tabetudiant->model()->data(index).toString();
+    QSqlQuery qry;
+    qry.prepare("select * from CLIENT_CRUD where CIN='"+val+"' or NOM='"+val+"' or PRENOM='"+val+"' or ADRESSE='"+val+"' ");
+    if (qry.exec( ))
+    {
+                  while(qry.next())
+                    {
+                        ui->lineEdit_nom->setText(qry.value(0).toString());
+                        ui->lineEdit_prenom->setText(qry.value(1).toString());
+                        ui->lineEdit_CIN->setText(qry.value(2).toString());
+                        ui->lineEdit_adresse->setText(qry.value(3).toString());
+
+
+                    }
+                }
+}
+
+
+
+void Dialog::on_pushButton_modifierclient_clicked()
+{
+    int cin=ui->lineEdit_CIN->text().toInt();
+    QString nom=ui->lineEdit_nom->text();
+    QString prenom=ui->lineEdit_prenom->text();
+    QString adresse=ui->lineEdit_adresse->text();
+    client e(cin,nom,prenom,adresse);
+    bool test=e.modifier();
+    if(test){ui->tabetudiant->setModel(tmpclient.afficher("select * from CLIENT_CRUD"));
+
+
+    }
 }

@@ -162,3 +162,4 @@ QSqlQueryModel *client::rechercher(QString nom){
 
 
 
+
